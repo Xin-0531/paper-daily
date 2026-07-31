@@ -22,7 +22,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  issues: read
+  issues: write
 
 concurrency:
   group: pages
@@ -30,7 +30,7 @@ concurrency:
 
 jobs:
   collect-and-deploy:
-    if: github.event_name != 'issues' || github.event.issue.title == 'Research Interests'
+    if: github.event_name != 'issues' || contains(github.event.issue.labels.*.name, 'query')
     runs-on: ubuntu-latest
     environment:
       name: github-pages
